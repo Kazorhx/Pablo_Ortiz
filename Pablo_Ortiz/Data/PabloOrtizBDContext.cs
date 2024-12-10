@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Pablo_Ortiz.Modelos;
 
-namespace Pablo_Ortiz.Modelos
+namespace Pablo_Ortiz.Data
 {
     public partial class PabloOrtizBDContext : DbContext
     {
