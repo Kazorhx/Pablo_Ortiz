@@ -53,8 +53,6 @@ namespace Pablo_Ortiz.Controllers
         }
 
         // POST: Proveedors/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Rut,Nombre,UbicacionId")] Proveedor proveedor)
@@ -87,8 +85,6 @@ namespace Pablo_Ortiz.Controllers
         }
 
         // POST: Proveedors/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Rut,Nombre,UbicacionId")] Proveedor proveedor)
@@ -155,14 +151,31 @@ namespace Pablo_Ortiz.Controllers
             {
                 _context.Proveedors.Remove(proveedor);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ProveedorExists(int id)
         {
-          return (_context.Proveedors?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Proveedors?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        // Acción para el reporte de proveedores por ciudad
+        public async Task<IActionResult> ReporteProveedoresPorCiudad()
+        {
+            var reporte = await _context.Proveedors
+                .Include(p => p.Ubicacion)
+                .GroupBy(p => p.Ubicacion.Nombre)
+                .Select(g => new
+                {
+                    Ciudad = g.Key,
+                    TotalProveedores = g.Count()
+                })
+                .OrderByDescending(r => r.TotalProveedores)
+                .ToListAsync();
+
+            return View(reporte);
         }
     }
 }

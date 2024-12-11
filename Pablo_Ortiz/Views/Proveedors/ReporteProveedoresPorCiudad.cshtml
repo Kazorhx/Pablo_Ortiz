@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Reporte de Proveedores por Ciudad";
+}
+
+<h2 class="text-center mt-4">Reporte de Proveedores por Ciudad</h2>
+
+<div class="container mt-4">
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Ciudad</th>
+                <th scope="col">Total de Proveedores</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Ciudad</td>
+                    <td>@item.TotalProveedores</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
