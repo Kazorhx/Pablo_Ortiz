@@ -1,35 +1,38 @@
 ﻿@model IEnumerable<Pablo_Ortiz.Modelos.Ubicacion>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Ubicaciones";
+    Layout = "~/Views/Shared/_Layout.cshtml"; /* Asegúrate de que el layout esté configurado */
 }
 
-<h1>Index</h1>
+<div class="mt-4">
+    <h1 class="text-center mb-4">Ubicaciones</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <p>
+        <a asp-action="Create" class="btn btn-outline-primary btn-lg" style="background-color: #ffffff; border-color: #40E0D0; color: #40E0D0; font-weight: bold;">
+            + Crear Nueva Ubicación
+        </a>
+    </p>
+
+    <table class="table table-bordered">
+        <thead style="background-color: #40E0D0; color: #ffffff;">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-success btn-sm">Editar</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm">Detalles</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -40,7 +40,7 @@ namespace Pablo_Ortiz.Data
                     .IsUnique();
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("id");
 
                 entity.Property(e => e.Nombre)
@@ -65,7 +65,7 @@ namespace Pablo_Ortiz.Data
                 entity.ToTable("TipoProducto");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("id");
 
                 entity.Property(e => e.Descripcion)
@@ -89,7 +89,7 @@ namespace Pablo_Ortiz.Data
                 entity.ToTable("Ubicacion");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("id");
 
                 entity.Property(e => e.Nombre)
