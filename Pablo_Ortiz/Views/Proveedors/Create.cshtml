@@ -1,42 +1,49 @@
 ﻿@model Pablo_Ortiz.Modelos.Proveedor
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Crear Proveedor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<div class="mt-4">
+    <!-- Título centrado -->
+    <h1 class="text-center mb-4">Crear Proveedor</h1>
 
-<h4>Proveedor</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Rut" class="control-label"></label>
-                <input asp-for="Rut" class="form-control" />
-                <span asp-validation-for="Rut" class="text-danger"></span>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <!-- Cuadro del formulario -->
+            <div class="p-4 border" style="border-color: #40E0D0; border-width: 2px; border-radius: 10px;">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group mb-3">
+                        <label asp-for="Rut" class="form-label"></label>
+                        <input asp-for="Rut" class="form-control border-success" style="border-width: 2px;" />
+                        <span asp-validation-for="Rut" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="Nombre" class="form-label"></label>
+                        <input asp-for="Nombre" class="form-control border-success" style="border-width: 2px;" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="UbicacionId" class="form-label"></label>
+                        <select asp-for="UbicacionId" class="form-control border-success" style="border-width: 2px;" asp-items="ViewBag.UbicacionId"></select>
+                    </div>
+                    <div class="form-group mb-4">
+                        <input type="submit" value="Crear" class="btn btn-outline-primary btn-lg" style="background-color: #ffffff; border-color: #40E0D0; color: #40E0D0; font-weight: bold;" />
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UbicacionId" class="control-label"></label>
-                <select asp-for="UbicacionId" class ="form-control" asp-items="ViewBag.UbicacionId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+    </div>
+
+    <div class="text-center mt-3">
+        <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

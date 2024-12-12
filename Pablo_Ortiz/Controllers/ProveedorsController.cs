@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Pablo_Ortiz.Data;
 using Pablo_Ortiz.Modelos;
@@ -59,9 +60,16 @@ namespace Pablo_Ortiz.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(proveedor);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    _context.Add(proveedor);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlEx && sqlEx.Number == 2627) 
+                {
+                    ModelState.AddModelError(string.Empty, "El RUT ya está registrado en el sistema, utiliza otro por favor");
+                }
             }
             ViewData["UbicacionId"] = new SelectList(_context.Ubicacions, "Id", "Id", proveedor.UbicacionId);
             return View(proveedor);
